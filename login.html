@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | Enterprise Portal</title>
+    <style>
+        :root {
+            --brand-primary: #2563eb;
+            --brand-hover: #1d4ed8;
+            --bg-canvas: #f8fafc;
+            --bg-surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-neutral: #e2e8f0;
+            --status-error: #dc2626;
+            --radius-md: 6px;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+            --transition-smooth: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-canvas);
+            color: var(--text-main);
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .auth-card {
+            background: var(--bg-surface);
+            padding: 2.5rem 2rem;
+            width: 100%;
+            max-width: 400px;
+            border-radius: var(--radius-md);
+            border: 1px solid var(--border-neutral);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .auth-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .auth-brand-logo {
+            width: 42px;
+            height: 42px;
+            background: var(--brand-primary);
+            border-radius: var(--radius-md);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        .auth-header h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.025em;
+            margin-bottom: 0.375rem;
+        }
+
+        .auth-header p {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.375rem;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.625rem 0.75rem;
+            border: 1px solid var(--border-neutral);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+            background-color: var(--bg-surface);
+            color: var(--text-main);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        input.invalid {
+            border-color: var(--status-error);
+        }
+
+        input.invalid:focus {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.15);
+        }
+
+        .error-text {
+            color: var(--status-error);
+            font-size: 0.75rem;
+            margin-top: 0.375rem;
+            display: none;
+        }
+
+        .utilities {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1.5rem 0;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: auto;
+            box-shadow: none;
+            cursor: pointer;
+        }
+
+        .inline-link {
+            font-size: 0.875rem;
+            color: var(--brand-primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .inline-link:hover {
+            color: var(--brand-hover);
+            text-decoration: underline;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 0.625rem;
+            background-color: var(--brand-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-smooth);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--brand-hover);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .auth-footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <main class="auth-card">
+        <header class="auth-header">
+            <div class="auth-brand-logo" aria-hidden="true">Ω</div>
+            <h1>Sign in to your account</h1>
+            <p>Access your dashboard and infrastructure</p>
+        </header>
+        
+        <form id="authForm" novalidate>
+            <div class="form-group">
+                <label for="email">Email address</label>
+                <div class="input-wrapper">
+                    <input type="email" id="email" autocomplete="username" required placeholder="name@company.com">
+                </div>
+                <div class="error-text" id="emailError" id="email-error" aria-live="polytic">Please enter a valid business email address.</div>
+            </div>
+            
+            <div class="form-group">
+                <div class="label-row">
+                    <label for="password">Password</label>
+                    <a href="/forgot-password" class="inline-link" tabIndex="5">Forgot password?</a>
+                </div>
+                <div class="input-wrapper">
+                    <input type="password" id="password" autocomplete="current-password" required placeholder="••••••••">
+                </div>
+                <div class="error-text" id="passwordError" id="password-error" aria-live="polytic">Password must be at least 8 characters long.</div>
+            </div>
+            
+            <div class="utilities">
+                <label class="remember-me">
+                    <input type="checkbox" id="remember">
+                    <span>Keep me signed in</span>
+                </label>
+            </div>
+            
+            <button type="submit" class="btn-primary" id="submitBtn">Sign In</button>
+        </form>
+        
+        <footer class="auth-footer">
+            <p>New to the platform? <a href="/signup" class="inline-link">Create an account</a></p>
+        </footer>
+    </main>
+
+    <script>
+        document.getElementById('authForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const emailField = document.getElementById('email');
+            const passwordField = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            let isFormValid = true;
+
+            // Email Validation
+            if (!emailRegex.test(emailField.value)) {
+                showError(emailField, emailError);
+                isFormValid = false;
+            } else {
+                hideError(emailField, emailError);
+            }
+
+            // Password Validation
+            if (passwordField.value.length < 8) {
+                showError(passwordField, passwordError);
+                isFormValid = false;
+            } else {
+                hideError(passwordField, passwordError);
+            }
+
+            if (isFormValid) {
+                // UI State mutation to prevent double submission
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Authenticating...';
+                
+                // Network Payload Structure Example
+                const payload = {
+                    username: emailField.value,
+                    password: passwordField.value,
+                    rememberMe: document.getElementById('remember').checked
+                };
+                
+                console.log('XHR payload prepared:', payload);
+                // Execute fetch operation here: fetch('/api/v1/auth/token', { method: 'POST', body: JSON.stringify(payload) })
+            }
+        });
+
+        function showError(inputElement, errorElement) {
+            inputElement.classList.add('invalid');
+            errorElement.style.display = 'block';
+            inputElement.setAttribute('aria-invalid', 'true');
+        }
+
+        function hideError(inputElement, errorElement) {
+            inputElement.classList.remove('invalid');
+            errorElement.style.display = 'none';
+            inputElement.removeAttribute('aria-invalid');
+        }
+    </script>
+</body>
+</html>
